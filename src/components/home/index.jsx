@@ -24,7 +24,7 @@ class index extends Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.axiosGet(HotelListsApi, "HotelLists");
     this.axiosGet(HotelDetailsApi, "HotelsDetail");
   }
