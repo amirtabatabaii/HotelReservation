@@ -1,10 +1,10 @@
-import { HOTEL_LIST, HOTELS_DETAIL } from "./types";
+import { HOTEL_LIST, HOTELS_DETAIL, SELECTED_HOTEL } from "./types";
 
 // get Hotel Lists
-export const getHotelLists = (list) => (dispatch) => {
+export const getHotelLists = (listOfHotels) => (dispatch) => {
   dispatch({
     type: HOTEL_LIST,
-    payload: { list },
+    payload: { listOfHotels },
   });
 };
 
@@ -13,5 +13,13 @@ export const getHotelsDetails = (list) => (dispatch) => {
   dispatch({
     type: HOTELS_DETAIL,
     payload: { list },
+  });
+};
+
+// set Selected Hotel Detail
+export const setSelectedHotel = (obj) => (dispatch) => {
+  dispatch({
+    type: SELECTED_HOTEL,
+    payload: { obj },
   });
 };
