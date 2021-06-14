@@ -1,4 +1,5 @@
 import { notification } from "antd";
+import moment from "moment";
 let startDate = "";
 let endDate = "";
 
@@ -87,25 +88,35 @@ export function addDataToLocalStorage(itemName, itemValue) {
 export function pickerStartOnChange(date, dateString) {
   startDate = dateString;
 
+  let today = moment(new Date()).format("YYYY-MM-DD");
   let dt1 = new Date(startDate);
   let dt2 = new Date(endDate);
-  let diff =
-    Math.floor(
-      (Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) -
-        Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) /
-        (1000 * 60 * 60 * 24)
-    ) + 1;
-  if (diff <= 0) {
+
+  if (date_diff_indays(today, dt1) === 0) {
     notification_with_icon(
       "error",
-      "Tarihde Problem",
-      "Tarih ler Uyumlu Değil!"
+      "Başlangıç Tarih",
+      "Başlangıç Tarih Geçmiş!"
     );
-    localStorage.removeItem("start_date");
-    localStorage.removeItem("end_date");
   } else {
-    addDataToLocalStorage("start_date", startDate);
-    addDataToLocalStorage("end_date", endDate);
+    let diff =
+      Math.floor(
+        (Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) -
+          Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) /
+          (1000 * 60 * 60 * 24)
+      ) + 1;
+    if (diff <= 0) {
+      notification_with_icon(
+        "error",
+        "Tarihde Problem",
+        "Tarih ler Uyumlu Değil!"
+      );
+      localStorage.removeItem("start_date");
+      localStorage.removeItem("end_date");
+    } else {
+      addDataToLocalStorage("start_date", startDate);
+      addDataToLocalStorage("end_date", endDate);
+    }
   }
 }
 

@@ -11,30 +11,11 @@ function picker(props) {
       defaultValue={
         props.name === "start_date" && props.start_date
           ? moment(props.start_date, "YYYY/MM/DD")
-          : props.name === "start_date" && props.start_date
+          : props.name === "end_date" && props.end_date
           ? moment(props.end_date, "YYYY/MM/DD")
           : ""
       }
     />
-
-    // <Space direction='vertical' size={12}>
-    //   <RangePicker
-    //     defaultValue={
-    //       props.start_date && props.end_date
-    //         ? [
-    //             moment(props.start_date, "YYYY/MM/DD"),
-    //             moment(props.end_date, "YYYY/MM/DD"),
-    //           ]
-    //         : ["", ""]
-    //     }
-    //     // size='large'
-    //     ranges={{
-    //       Today: [moment(), moment()],
-    //       "This Month": [moment().startOf("month"), moment().endOf("month")],
-    //     }}
-    //     onChange={props.pickerOnChange}
-    //   />
-    // </Space>
   );
 }
 
