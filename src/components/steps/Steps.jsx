@@ -33,7 +33,7 @@ import addLogo from "../../assets/add_logo.png";
 class Steps extends Component {
   constructor(props) {
     super(props);
-    this.state = { startingStep: 0, is_posted: true, posted_id: "" };
+    this.state = { startingStep: 0, is_posted: false, posted_id: "" };
   }
 
   componentWillMount() {
