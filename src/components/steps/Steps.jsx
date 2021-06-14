@@ -45,8 +45,6 @@ class Steps extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // console.log("this.Props", this.Props);
-    // console.log("prevProps", prevProps);
     if (this.props.newReserve !== prevProps.newReserve) {
       localStorage.clear();
       this.setState(
@@ -57,7 +55,7 @@ class Steps extends Component {
         },
         () => window.location.reload()
       );
-    } else console.log("elses");
+    }
   }
 
   hotelOnChange = (value) => {
