@@ -13,14 +13,23 @@ function info(props) {
           kullanabilirsiniz.
         </h6>
       </p>
-      <div className='d-flex justify-content-around'>
-        <Button className='btn btn-primary btn-lg' onClick={props.handleNew}>
+      <div className='d-sm-flex justify-content-around text-center'>
+        <Button
+          className='btn btn-primary btn-lg m-1'
+          onClick={props.handleNew}
+        >
           Yeni Reservasyon Yap
         </Button>
-        <Button className='btn btn-primary btn-lg' onClick={props.handleEdit}>
+        <Button
+          className='btn btn-primary btn-lg m-1'
+          onClick={props.handleEdit}
+        >
           Reservasyonu Güncelle
         </Button>
-        <Button className='btn btn-primary btn-lg' onClick={props.handleDelete}>
+        <Button
+          className='btn btn-primary btn-lg m-1'
+          onClick={props.handleDelete}
+        >
           Reservasyonu İptal Et
         </Button>
       </div>

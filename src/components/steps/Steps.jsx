@@ -33,7 +33,7 @@ import addLogo from "../../assets/add_logo.png";
 class Steps extends Component {
   constructor(props) {
     super(props);
-    this.state = { startingStep: 0, is_posted: false, posted_id: "" };
+    this.state = { startingStep: 0, is_posted: true, posted_id: "" };
   }
 
   componentWillMount() {
@@ -195,7 +195,7 @@ class Steps extends Component {
         )}
 
         {this.state.is_posted && (
-          <Container className='w-50'>
+          <Container>
             <Row className='border rounded mb-3 p-3'>
               <Info
                 addLogo={addLogo}
