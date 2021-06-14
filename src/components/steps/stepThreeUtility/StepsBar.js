@@ -20,7 +20,8 @@ function StepsBar(props) {
             <StepOne
               adultInputNumberOnChange={props.adultInputNumberOnChange}
               childInputNumberOnChange={props.childInputNumberOnChange}
-              pickerOnChange={props.pickerOnChange}
+              pickerEndOnChange={props.pickerEndOnChange}
+              pickerStartOnChange={props.pickerStartOnChange}
               hotelOnSearch={props.hotelOnSearch}
               hotelOnChange={props.hotelOnChange}
             />

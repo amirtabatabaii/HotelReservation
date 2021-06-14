@@ -11,7 +11,7 @@ class cardDetail extends Component {
       <fieldset className='scheduler-border'>
         <legend className='scheduler-border'>Kart Bilgileri</legend>
 
-        <Row className='w-100 p-3'>
+        <Row className='w-100 p-2 m-auto'>
           <label>Kart Numarası</label>
           <Input
             placeholder='Kart Numarasını Giriniz'
@@ -24,7 +24,7 @@ class cardDetail extends Component {
           />
         </Row>
 
-        <Row className='w-100 p-3'>
+        <Row className='w-100 p-2 m-auto'>
           <label>Kartın Üzerindeki İsim</label>
           <Input
             placeholder='Kartın Üzerindeki İsim Giriniz'
@@ -36,14 +36,14 @@ class cardDetail extends Component {
           />
         </Row>
 
-        <Row className='w-100 p-3'>
+        <Row className='w-100 p-2 m-auto'>
           <Col lg={8}>
             <label>Kartın Son Kullanma Tarihi</label>
             <Select
               labelInValue
               placeholder='Ay'
               name='crdt_month'
-              style={{ width: 150 }}
+              style={{ width: 100 }}
               onChange={this.props.handleDateChange}
             >
               {month.map((month, index) => (
@@ -57,7 +57,7 @@ class cardDetail extends Component {
               labelInValue
               placeholder='Yıl'
               name='crdt_year'
-              style={{ width: 150 }}
+              style={{ width: 100 }}
               onChange={this.props.handleDateChange}
             >
               {year.map((year, index) => (

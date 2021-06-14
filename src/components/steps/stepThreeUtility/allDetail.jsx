@@ -6,7 +6,7 @@ class allDetail extends Component {
     return (
       <Container>
         <Row className='m-auto justify-content-center text-center'>
-          <Col className='rounded bg-white p-3 m-3'>
+          <Col className='rounded bg-white p-2 m-2'>
             <span className='h5'>
               {this.props.find_hotel_name(
                 this.props.listOfHotels,
@@ -18,27 +18,27 @@ class allDetail extends Component {
         </Row>
 
         <Row className='m-auto justify-content-center text-center'>
-          <Col className='rounded bg-white p-2 m-3'>
+          <Col className='rounded bg-white p-1 m-2'>
             <b>Giriş Tarihi:</b>
             <p>{localStorage.getItem("start_date")}</p>
           </Col>
-          <Col className='rounded bg-white p-2 m-3'>
+          <Col className='rounded bg-white p-1 m-2'>
             <b>Çıkış Tarihi:</b>
             <p>{localStorage.getItem("end_date")}</p>
           </Col>
         </Row>
         <Row className='m-auto justify-content-center text-center'>
-          <Col className='rounded bg-white p-2 m-3'>
+          <Col className='rounded bg-white p-1 m-2'>
             <b>Yetişkin:</b>
             <p>{localStorage.getItem("adult")}</p>
           </Col>
-          <Col className='rounded bg-white p-2 m-3'>
+          <Col className='rounded bg-white p-1 m-2'>
             <b>Çocuk:</b>
             <p>{localStorage.getItem("child")}</p>
           </Col>
         </Row>
         <Row className='m-auto justify-content-center text-center'>
-          <Col className='rounded bg-white p-2 m-3'>
+          <Col className='rounded bg-white p-1 m-2'>
             <b>Oda Tipi:</b>
             <p>
               {this.props.find_room_type_scenic(
@@ -47,7 +47,7 @@ class allDetail extends Component {
               )}
             </p>
           </Col>
-          <Col className='rounded bg-white p-2 m-3'>
+          <Col className='rounded bg-white p-1 m-2'>
             <b>Manzara:</b>
             <p>
               {this.props.find_room_type_scenic(

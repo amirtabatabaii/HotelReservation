@@ -3,7 +3,8 @@ import { Tag } from "antd";
 
 function selectedHotelInfo(props) {
   return (
-    <div className='border rounded m-auto p-3 w-75 justify-content-center bg-light'>
+    // <div className='border rounded m-auto p-3 w-75 justify-content-center bg-light'>
+    <div className='border rounded m-auto justify-content-center bg-light'>
       <div className='m-2'>
         <span className='h3'>{props.hotel_name}</span>
         <span className='h5 m-2'>({props.hotel_city})</span>

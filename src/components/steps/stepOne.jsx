@@ -14,7 +14,8 @@ class StepOne extends Component {
       selectedHotel,
       hotelOnChange,
       hotelOnSearch,
-      pickerOnChange,
+      pickerEndOnChange,
+      pickerStartOnChange,
       adultInputNumberOnChange,
       childInputNumberOnChange,
       adult,
@@ -34,15 +35,25 @@ class StepOne extends Component {
               />
             </Col>
 
-            <Col xs='12' md='12' lg='3' className=' border rounded p-5 m-1'>
+            <Col xs='12' md='12' lg='3' className=' border rounded p-4 m-1'>
               <p className='font-weight-bold'>Giriş ve Çıkış Tarihi</p>
               <Picker
-                pickerOnChange={pickerOnChange}
+                name='start_date'
+                pickerOnChange={pickerStartOnChange}
                 start_date={localStorage.getItem("start_date")}
                 end_date={localStorage.getItem("end_date")}
               />
             </Col>
-            <Col xs='12' md='6' lg='3' className=' border rounded p-5 m-1'>
+            <Col xs='12' md='12' lg='3' className=' border rounded p-4 m-1'>
+              <p className='font-weight-bold'>Giriş ve Çıkış Tarihi</p>
+              <Picker
+                name='end_date'
+                pickerOnChange={pickerEndOnChange}
+                start_date={localStorage.getItem("start_date")}
+                end_date={localStorage.getItem("end_date")}
+              />
+            </Col>
+            <Col xs='12' md='6' lg='2' className=' border rounded p-4 m-1'>
               <p className='font-weight-bold'>Yetişkin Sayısı</p>
               <InputNumberBox
                 min={1}
@@ -59,7 +70,7 @@ class StepOne extends Component {
               />
             </Col>
 
-            <Col xs='12' md='6' lg='3' className=' border rounded p-5 m-1'>
+            <Col xs='12' md='6' lg='2' className=' border rounded p-4 m-1'>
               <p className='font-weight-bold'>Çocuk Sayısı</p>
               <InputNumberBox
                 min={0}

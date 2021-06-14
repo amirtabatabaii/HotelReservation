@@ -34,7 +34,7 @@ function roomType(props) {
             </div>
           </Col>
           <Col>
-            <div className='panel-body h4 m-1 text-success'>
+            <div className='panel-body h4 m-1 text-success text-center'>
               {props.calc_price(
                 props.room.price,
                 props.date_diff_days,

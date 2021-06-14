@@ -53,13 +53,9 @@ label {
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: xx-large;
+  font-size: 30px;
   /* font-weight: bolder; */
 }
-
-/* .crdt-number:before {
-  content: "XXXX XXXX XXXX XXXX";
-} */
 
 .crdt-name {
   position: absolute;
@@ -86,6 +82,78 @@ label {
   transform: translate(-50%, -50%);
   font-size: larger;
   /* font-weight: 700; */
+}
+
+@media screen and (max-width: 1440px) {
+  .crdt-number {
+    font-size: 25px;
+  }
+  .crdt-name {
+    font-size: 20px;
+    top: 70%;
+  }
+  .crdt-date {
+    font-size: 20px;
+    top: 80%;
+  }
+  .crdt-cvv {
+    font-size: 20px;
+    top: 80%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .crdt-number {
+    font-size: 20px;
+  }
+  .crdt-name {
+    font-size: 15px;
+    top: 70%;
+  }
+  .crdt-date {
+    font-size: 15px;
+    top: 80%;
+  }
+  .crdt-cvv {
+    font-size: 15px;
+    top: 80%;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .crdt-number {
+    font-size: 15px;
+  }
+  .crdt-name {
+    font-size: 10px;
+    top: 70%;
+  }
+  .crdt-date {
+    font-size: 10px;
+    top: 80%;
+  }
+  .crdt-cvv {
+    font-size: 10px;
+    top: 80%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .crdt-number {
+    font-size: 7px;
+  }
+  .crdt-name {
+    font-size: 5px;
+    top: 65%;
+  }
+  .crdt-date {
+    font-size: 5px;
+    top: 80%;
+  }
+  .crdt-cvv {
+    font-size: 5px;
+    top: 80%;
+  }
 }
 
 fieldset.scheduler-border {

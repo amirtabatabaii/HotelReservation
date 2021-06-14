@@ -54,7 +54,8 @@ class StepTwo extends Component {
           hotel_possibilities={selectedHotel && selectedHotel.possibilities}
         />
 
-        <div className='border rounded mx-auto my-3 p-3 w-75 justify-content-center bg-light'>
+        {/* <div className='border rounded mx-auto my-3 p-3 w-75 justify-content-center bg-light'> */}
+        <div className='border rounded mx-auto my-3 justify-content-center bg-light'>
           <Divider orientation='left'>
             <h5>Oda Tipi Seçimi</h5>
           </Divider>
@@ -63,7 +64,7 @@ class StepTwo extends Component {
             <Row>
               {selectedHotel &&
                 selectedHotel.room_type.map((room, index) => (
-                  <Col className='col-md-4 col-lg-4 col-sm-4' key={index}>
+                  <Col className='col-md-4 col-lg-4 col-sm-12' key={index}>
                     <RoomType
                       room={room}
                       date_diff_days={date_diff_days}
@@ -76,7 +77,8 @@ class StepTwo extends Component {
           </Container>
         </div>
 
-        <div className='border rounded mx-auto my-3 p-3 w-75 justify-content-center bg-light'>
+        {/* <div className='border rounded mx-auto my-3 p-3 w-75 justify-content-center bg-light'> */}
+        <div className='border rounded mx-auto my-3 justify-content-center bg-light'>
           <Divider orientation='left'>
             <h5>Manzara Seçimi</h5>
           </Divider>
@@ -85,7 +87,7 @@ class StepTwo extends Component {
             <Row>
               {selectedHotel &&
                 selectedHotel.room_scenic.map((room, index) => (
-                  <Col className='col-md-4 col-lg-4 col-sm-4' key={index}>
+                  <Col className='col-md-4 col-lg-4 col-sm-12' key={index}>
                     <RoomScenic
                       room={room}
                       roomSelectedOnChange={roomSelectedOnChange}

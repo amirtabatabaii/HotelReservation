@@ -11,7 +11,8 @@ import {
   step1Validator,
   step2Validator,
   notification_with_icon,
-  pickerOnChange,
+  pickerEndOnChange,
+  pickerStartOnChange,
   adultInputNumberOnChange,
   childInputNumberOnChange,
   roomSelectedOnChange,
@@ -182,7 +183,8 @@ class Steps extends Component {
             onFormSubmit={this.onFormSubmit}
             adultInputNumberOnChange={adultInputNumberOnChange}
             childInputNumberOnChange={childInputNumberOnChange}
-            pickerOnChange={pickerOnChange}
+            pickerEndOnChange={pickerEndOnChange}
+            pickerStartOnChange={pickerStartOnChange}
             hotelOnSearch={this.hotelOnSearch}
             hotelOnChange={this.hotelOnChange}
             step1Validator={step1Validator}

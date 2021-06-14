@@ -1,4 +1,6 @@
 import { notification } from "antd";
+let startDate = "";
+let endDate = "";
 
 export function date_diff_indays(date1, date2) {
   let dt1 = new Date(date1);
@@ -82,9 +84,55 @@ export function addDataToLocalStorage(itemName, itemValue) {
   localStorage.setItem(itemName, itemValue);
 }
 
-export function pickerOnChange(dates, dateStrings) {
-  addDataToLocalStorage("start_date", dateStrings[0]);
-  addDataToLocalStorage("end_date", dateStrings[1]);
+export function pickerStartOnChange(date, dateString) {
+  startDate = dateString;
+
+  let dt1 = new Date(startDate);
+  let dt2 = new Date(endDate);
+  let diff =
+    Math.floor(
+      (Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) -
+        Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) /
+        (1000 * 60 * 60 * 24)
+    ) + 1;
+  if (diff <= 0) {
+    notification_with_icon(
+      "error",
+      "Tarihde Problem",
+      "Tarih ler Uyumlu Değil!"
+    );
+    localStorage.removeItem("start_date");
+    localStorage.removeItem("end_date");
+  } else {
+    addDataToLocalStorage("start_date", startDate);
+    addDataToLocalStorage("end_date", endDate);
+  }
+}
+
+export function pickerEndOnChange(date, dateString) {
+  endDate = dateString;
+
+  let dt1 = new Date(startDate);
+  let dt2 = new Date(endDate);
+  let diff =
+    Math.floor(
+      (Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) -
+        Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) /
+        (1000 * 60 * 60 * 24)
+    ) + 1;
+
+  if (diff <= 0) {
+    notification_with_icon(
+      "error",
+      "Tarihde Problem",
+      "Tarih ler Uyumlu Değil!"
+    );
+    localStorage.removeItem("start_date");
+    localStorage.removeItem("end_date");
+  } else {
+    addDataToLocalStorage("start_date", startDate);
+    addDataToLocalStorage("end_date", endDate);
+  }
 }
 
 export function adultInputNumberOnChange(value) {
