@@ -1,4 +1,5 @@
 import React from "react";
+import { Tag } from "antd";
 
 function selectedHotelInfo(props) {
   return (
@@ -6,6 +7,13 @@ function selectedHotelInfo(props) {
       <div className='m-2'>
         <span className='h3'>{props.hotel_name}</span>
         <span className='h5 m-2'>({props.hotel_city})</span>
+      </div>
+      <div className='m-2'>
+        {props.hotel_possibilities.map((tags, index) => (
+          <Tag key={index} color='purple'>
+            {tags}
+          </Tag>
+        ))}
       </div>
       <div className='m-2'>
         <span className='h6'>Giriş Tarihi</span>

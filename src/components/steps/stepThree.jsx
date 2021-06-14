@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { setSelectedHotel } from "../../redux/action";
-import InputBox from "./stepThreeUtility/inputBox";
 import { Row, Col, Container } from "react-bootstrap";
-import { Input } from "antd";
-import { Select } from "antd";
-import { year, month } from "../../utility/apiUrl";
-import { Divider } from "antd";
+import moment from "moment";
 import {
   date_diff_indays,
   calc_price,
@@ -16,9 +12,17 @@ import {
   find_room_price,
   find_room_percentage,
   calc_end_price,
+  notification_with_icon,
 } from "../../utility/utility";
+import BankCard from "./stepThreeUtility/bankCard";
+import CardDetail from "./stepThreeUtility/cardDetail";
+import AllSelectedHotelDetail from "./stepThreeUtility/allDetail";
+import CalcPrice from "./stepThreeUtility/calcPriceDetail";
+import { Button, Form, Input, Space } from "antd";
+import axios from "axios";
+import { HotelCodeApi } from "../../utility/apiUrl";
 
-const { Option } = Select;
+const { Search } = Input;
 
 class StepThree extends Component {
   constructor(props) {
@@ -29,26 +33,18 @@ class StepThree extends Component {
       crdt_month: "",
       crdt_year: "",
       crdt_cvv: "",
+      coupon_code: "",
+      coupon_code_discount: "",
     };
   }
 
-  componentWillMount() {
-    this.props.setSelectedHotel(
-      this.props.detailsOfHotels.find(
-        (htl) => htl.hotel_id == localStorage.getItem("hotel_id")
-      )
-    );
-  }
-
-  handelNumericInputChange = (e) => {
-    const crdt_number = e.target.validity.valid
-      ? e.target.value
-      : this.state.crdt_number;
-
-    this.setState({
-      [e.target.name]: crdt_number, //e.target.value,
-    });
-  };
+  // componentWillMount() {
+  //   this.props.setSelectedHotel(
+  //     this.props.detailsOfHotels.find(
+  //       (htl) => htl.hotel_id == localStorage.getItem("hotel_id")
+  //     )
+  //   );
+  // }
 
   handelInputChange = (e) => {
     const txt = e.target.validity.valid ? e.target.value : "";
@@ -56,8 +52,8 @@ class StepThree extends Component {
     this.setState(
       {
         [e.target.name]: txt, //e.target.value,
-      }
-      // () => console.log(this.state)
+      },
+      () => localStorage.setItem(e.target.name, txt)
     );
   };
 
@@ -67,16 +63,66 @@ class StepThree extends Component {
       this.setState(
         {
           crdt_month: value.value.toString(),
-        }
-        // () => console.log(this.state)
+        },
+        () => localStorage.setItem("crdt_month", value.value.toString())
       );
     else
       this.setState(
         {
           crdt_year: value.value,
-        }
-        // () => console.log(this.state)
+        },
+        () => localStorage.setItem("crdt_year", value.value)
       );
+  };
+
+  onCodeSearch = (value) => {
+    axios
+      .get(HotelCodeApi + `?code=${value.code.toUpperCase()}`)
+      .then((res) => {
+        if (res.status === 200) {
+          // console.log(res);
+          if (res.data.length === 0)
+            notification_with_icon(
+              "error",
+              "Code Bulunmadı",
+              "Aradağımız Code Bulunmadı...!"
+            );
+
+          if (res.data.length >= 1) {
+            //date
+            const today = moment(moment().toDate()).format("YYYY-MM-DD");
+            const code_date = res.data[0].expiration_at;
+            // console.log(res.data[0].expiration_at);
+            const diff = date_diff_indays(today, code_date);
+            if (diff < 0)
+              notification_with_icon(
+                "error",
+                "Code Geçersiz",
+                "Girdiğiniz Code Tarih nedeniyle Geçersiz...!"
+              );
+            else {
+              notification_with_icon(
+                "success",
+                "Code Başarıyla Eklendi",
+                "Girdiğiniz Code Başarıyla Eklendi...!"
+              );
+              this.setState(
+                {
+                  coupon_code: res.data[0].code,
+                  coupon_code_discount: res.data[0].discount_ammount,
+                },
+                () => {
+                  localStorage.setItem("coupon_code", this.state.coupon_code);
+                  localStorage.setItem(
+                    "code_discount",
+                    this.state.coupon_code_discount
+                  );
+                }
+              );
+            }
+          }
+        }
+      });
   };
 
   render() {
@@ -86,166 +132,63 @@ class StepThree extends Component {
           <Row className='w-100 m-auto justify-content-center '>
             <Col className='border rounded m-1' lg={7}>
               <Col lg={12}>
-                <div className='container3 p-3'>
-                  <img
-                    fluid
-                    src='https://images.contentstack.io/v3/assets/bltcf46bbde1704bd18/blt45ea081fb3b6dd38/5f9933271a81c1644e9965a0/CC-Image-CIMB-eCC-01.png?quality=70'
-                    alt='card'
-                    style={{ "max-width": "100%" }}
-                  />
-                  <div className='crdt-number'>
-                    {this.state.crdt_number
-                      .replace(/(\d{4})/g, "$1 ")
-                      .replace(/(^\s+|\s+$)/, "")}
-                  </div>
-                  <div className='crdt-name'>{this.state.crdt_name}</div>
-                  <div className='crdt-date'>
-                    {this.state.crdt_month}/{this.state.crdt_year}
-                  </div>
-                  <div className='crdt-cvv'>{this.state.crdt_cvv}</div>
-                </div>
+                <BankCard
+                  crdt_number={this.state.crdt_number}
+                  crdt_name={this.state.crdt_name}
+                  crdt_month={this.state.crdt_month}
+                  crdt_year={this.state.crdt_year}
+                  crdt_cvv={this.state.crdt_cvv}
+                />
               </Col>
               <Col lg={12} className='p-5'>
-                <fieldset className='scheduler-border'>
-                  <legend className='scheduler-border'>Kart Bilgileri</legend>
-
-                  <Row className='w-100 p-3'>
-                    <label>Kart Numarası</label>
-                    <Input
-                      placeholder='Kart Numarasını Giriniz'
-                      name='crdt_number'
-                      type='text'
-                      pattern='[0-9]*'
-                      onChange={this.handelInputChange}
-                      maxLength={16}
-                      value={this.state.crdt_number}
-                    />
-                  </Row>
-
-                  <Row className='w-100 p-3'>
-                    <label>Kartın Üzerindeki İsim</label>
-                    <Input
-                      placeholder='Kartın Üzerindeki İsim Giriniz'
-                      name='crdt_name'
-                      type='text'
-                      onChange={this.handelInputChange}
-                      maxLength={30}
-                      value={this.state.crdt_name}
-                    />
-                  </Row>
-
-                  <Row className='w-100 p-3'>
-                    <Col lg={8}>
-                      <label>Kartın Son Kullanma Tarihi</label>
-                      <Select
-                        labelInValue
-                        placeholder='Ay'
-                        name='crdt_month'
-                        style={{ width: 150 }}
-                        onChange={this.handleDateChange}
-                      >
-                        {month.map((month, index) => (
-                          <Option key={index} value={index + 1}>
-                            {month}
-                          </Option>
-                        ))}
-                      </Select>
-
-                      <Select
-                        labelInValue
-                        placeholder='Yıl'
-                        name='crdt_year'
-                        style={{ width: 150 }}
-                        onChange={this.handleDateChange}
-                      >
-                        {year.map((year, index) => (
-                          <Option key={index} value={year}>
-                            {year}
-                          </Option>
-                        ))}
-                      </Select>
-                    </Col>
-                    <Col lg={4}>
-                      <label>CVV</label>
-                      <Input
-                        placeholder='CVV Giriniz'
-                        name='crdt_cvv'
-                        type='text'
-                        pattern='[0-9]*'
-                        onChange={this.handelInputChange}
-                        maxLength={3}
-                        value={this.state.crdt_cvv}
-                      />
-                    </Col>
-                  </Row>
-                </fieldset>
+                <CardDetail
+                  handelInputChange={this.handelInputChange}
+                  crdt_number={this.state.crdt_number}
+                  crdt_name={this.state.crdt_name}
+                  handleDateChange={this.handleDateChange}
+                  crdt_cvv={this.state.crdt_cvv}
+                />
               </Col>
             </Col>
 
             <Col className='bg-light rounded m-1' lg={4}>
               <Col lg={12}>
-                <Container>
-                  <Row className='m-auto justify-content-center text-center'>
-                    <Col className='rounded bg-white p-3 m-3'>
-                      <span className='h5'>
-                        {find_hotel_name(
-                          this.props.listOfHotels,
-                          localStorage.getItem("hotel_id")
-                        )}
-                      </span>
-                      <span className='h6 m-2'>
-                        {this.props.selectedHotel.city}
-                      </span>
-                    </Col>
-                  </Row>
-
-                  <Row className='m-auto justify-content-center text-center'>
-                    <Col className='rounded bg-white p-2 m-3'>
-                      <b>Giriş Tarihi:</b>
-                      <p>{localStorage.getItem("start_date")}</p>
-                    </Col>
-                    <Col className='rounded bg-white p-2 m-3'>
-                      <b>Çıkış Tarihi:</b>
-                      <p>{localStorage.getItem("end_date")}</p>
-                    </Col>
-                  </Row>
-                  <Row className='m-auto justify-content-center text-center'>
-                    <Col className='rounded bg-white p-2 m-3'>
-                      <b>Yetişkin:</b>
-                      <p>{localStorage.getItem("adult")}</p>
-                    </Col>
-                    <Col className='rounded bg-white p-2 m-3'>
-                      <b>Çocuk:</b>
-                      <p>{localStorage.getItem("child")}</p>
-                    </Col>
-                  </Row>
-                  <Row className='m-auto justify-content-center text-center'>
-                    <Col className='rounded bg-white p-2 m-3'>
-                      <b>Oda Tipi:</b>
-                      <p>
-                        {find_room_type_scenic(
-                          this.props.selectedHotel.room_type,
-                          localStorage.getItem("room_type")
-                        )}
-                      </p>
-                    </Col>
-                    <Col className='rounded bg-white p-2 m-3'>
-                      <b>Manzara:</b>
-                      <p>
-                        {find_room_type_scenic(
-                          this.props.selectedHotel.room_scenic,
-                          localStorage.getItem("room_scenic")
-                        )}
-                      </p>
-                    </Col>
-                  </Row>
-                </Container>
+                <AllSelectedHotelDetail
+                  find_hotel_name={find_hotel_name}
+                  listOfHotels={this.props.listOfHotels}
+                  selectedHotel={this.props.selectedHotel}
+                  find_room_type_scenic={find_room_type_scenic}
+                />
               </Col>
               <Col lg={12}>
                 <Container>
-                  <Row className='m-auto justify-content-center text-center'>
+                  <Row className='m-auto'>
                     <Col className='rounded bg-white p-3 m-3'>
-                      <b>Kupon...</b>
+                      <Form
+                        name='basic'
+                        initialValues={{
+                          remember: true,
+                        }}
+                        onFinish={this.onCodeSearch}
+                        className='d-flex justify-content-around m-auto'
+                      >
+                        <Form.Item
+                          name='code'
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your username!",
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                        <Form.Item>
+                          <Button type='primary' htmlType='submit'>
+                            Submit
+                          </Button>
+                        </Form.Item>
+                      </Form>
                     </Col>
                   </Row>
                 </Container>
@@ -253,74 +196,17 @@ class StepThree extends Component {
               <Col lg={12}>
                 <Container>
                   <Row className='m-auto justify-content-center'>
-                    <Col className='rounded bg-white p-1 m-3'>
-                      <Container>
-                        <Row>
-                          <Col className='p-2 text-left'>Oda Fiyatı</Col>
-                          <Col className='p-2 float-right'>
-                            {find_room_price(
-                              this.props.selectedHotel.room_type,
-                              localStorage.getItem("room_type")
-                            ) + " TL"}
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col className='p-2 text-left'>Fiyat Etki Oranı</Col>
-                          <Col className='p-2 float-right'>
-                            {"%" +
-                              find_room_percentage(
-                                this.props.selectedHotel.room_scenic,
-                                localStorage.getItem("room_scenic")
-                              )}
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col className='p-2 text-left'>
-                            Konaklama (
-                            {date_diff_indays(
-                              localStorage.getItem("start_date"),
-                              localStorage.getItem("end_date")
-                            ) + " GÜN"}
-                            )
-                          </Col>
-                          <Col className='p-2 float-right'>
-                            {calc_price(
-                              find_room_price(
-                                this.props.selectedHotel.room_type,
-                                localStorage.getItem("room_type")
-                              ),
-                              date_diff_indays(
-                                localStorage.getItem("start_date"),
-                                localStorage.getItem("end_date")
-                              ),
-                              localStorage.getItem("adult")
-                            )}
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col className='p-2 text-left'>İndirim</Col>
-                          <Col className='p-2 float-right'>3 of 3</Col>
-                        </Row>
-                      </Container>
-                      <Divider />
-                      <h5 className='text-center'>TOPLAM TUTAR</h5>
-                      <h2 className='text-center'>
-                        {calc_end_price(
-                          find_room_price(
-                            this.props.selectedHotel.room_type,
-                            localStorage.getItem("room_type")
-                          ),
-                          date_diff_indays(
-                            localStorage.getItem("start_date"),
-                            localStorage.getItem("end_date")
-                          ),
-                          localStorage.getItem("adult"),
-                          find_room_percentage(
-                            this.props.selectedHotel.room_scenic,
-                            localStorage.getItem("room_scenic")
-                          )
-                        ) + " TL"}
-                      </h2>
+                    <Col className='rounded bg-white ps-1 m-3'>
+                      <CalcPrice
+                        selectedHotel={this.props.selectedHotel}
+                        find_room_price={find_room_price}
+                        find_room_percentage={find_room_percentage}
+                        date_diff_indays={date_diff_indays}
+                        calc_price={calc_price}
+                        calc_end_price={calc_end_price}
+                        coupon_code={this.state.coupon_code}
+                        coupon_code_discount={this.state.coupon_code_discount}
+                      />
                     </Col>
                   </Row>
                 </Container>
@@ -339,6 +225,4 @@ const mapStateToProps = (state) => ({
   selectedHotel: state.selectedHotel,
 });
 
-export default connect(mapStateToProps, { setSelectedHotel })(
-  withRouter(StepThree)
-);
+export default connect(mapStateToProps, {})(withRouter(StepThree));

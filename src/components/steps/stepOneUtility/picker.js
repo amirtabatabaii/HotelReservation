@@ -16,7 +16,7 @@ function picker(props) {
               ]
             : ["", ""]
         }
-        size='large'
+        // size='large'
         ranges={{
           Today: [moment(), moment()],
           "This Month": [moment().startOf("month"), moment().endOf("month")],

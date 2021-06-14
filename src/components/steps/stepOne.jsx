@@ -52,6 +52,7 @@ class StepOne extends Component {
                     ? localStorage.getItem("adult")
                     : 1
                 }
+                // value={localStorage.getItem("adult") === 1 ? 1 : null}
                 disabled={false}
                 inputNumberOnChange={adultInputNumberOnChange}
                 adult={adult}
@@ -68,7 +69,7 @@ class StepOne extends Component {
                     ? localStorage.getItem("child")
                     : 0
                 }
-                disabled={selectedHotel && selectedHotel.child_status}
+                disabled={selectedHotel && !selectedHotel.child_status}
                 inputNumberOnChange={childInputNumberOnChange}
                 child={child}
               />

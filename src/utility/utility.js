@@ -1,3 +1,5 @@
+import { notification } from "antd";
+
 export function date_diff_indays(date1, date2) {
   let dt1 = new Date(date1);
   let dt2 = new Date(date2);
@@ -12,10 +14,7 @@ export function date_diff_indays(date1, date2) {
 }
 
 export function calc_price(price, day, count) {
-  return (price * day * count)
-    .toFixed(3)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return (price * day * count).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
 export function find_hotel_name(array, id) {
@@ -27,18 +26,77 @@ export function find_room_type_scenic(array, id) {
 }
 
 export function find_room_price(array, id) {
-  return array
-    .find((htl) => htl.id == id)
-    .price.toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return array.find((htl) => htl.id == id).price;
 }
 
 export function find_room_percentage(array, id) {
   return array.find((htl) => htl.id == id).price_rate;
 }
 
-export function calc_end_price(price, day, count, percentage) {
-  const firstPrice = Number(calc_price(price, day, count));
-  const percentagePrice = Number(((firstPrice * percentage) / 100).toFixed(3));
-  return firstPrice + percentagePrice;
+export function calc_end_price(price, day, count, percentage, discount) {
+  const firstPrice = price * day * count;
+  const percentagePrice = (firstPrice * percentage) / 100;
+  const endTotal = (firstPrice + percentagePrice - discount)
+    .toString()
+    .split(".")[0];
+  localStorage.setItem("price", endTotal);
+  return endTotal;
+}
+
+export function notification_with_icon(type, message, description) {
+  notification[type]({
+    message: message,
+    description: description,
+  });
+}
+
+// steps
+export function step1Validator() {
+  if (
+    !localStorage.getItem("hotel_id") ||
+    !localStorage.getItem("start_date") ||
+    !localStorage.getItem("end_date")
+  )
+    notification_with_icon(
+      "error",
+      "Bilgilerde Eksik var",
+      "Lutfen Bilgileri tam giriniz!"
+    );
+  else return true;
+}
+
+export function step2Validator() {
+  if (
+    !localStorage.getItem("room_type") ||
+    !localStorage.getItem("room_scenic")
+  )
+    notification_with_icon(
+      "error",
+      "Bilgilerde Eksik var",
+      "Lutfen Bilgileri tam giriniz!"
+    );
+  else return true;
+}
+
+export function addDataToLocalStorage(itemName, itemValue) {
+  localStorage.setItem(itemName, itemValue);
+}
+
+export function pickerOnChange(dates, dateStrings) {
+  addDataToLocalStorage("start_date", dateStrings[0]);
+  addDataToLocalStorage("end_date", dateStrings[1]);
+}
+
+export function adultInputNumberOnChange(value) {
+  addDataToLocalStorage("adult", value);
+}
+
+export function childInputNumberOnChange(value) {
+  addDataToLocalStorage("child", value);
+}
+
+export function roomSelectedOnChange(e) {
+  const { name, value } = e.target;
+  if (name === "room_type") localStorage.setItem(name, value);
+  if (name === "room_scenic") localStorage.setItem(name, value);
 }

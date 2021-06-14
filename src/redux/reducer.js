@@ -22,6 +22,10 @@ export default function (state = initialState, action) {
         selectedHotel: action.payload.obj,
       };
 
+    // case SELECTED_HOTEL:
+    //   const htl = state.find((b) => action.htl === b.id);
+    //   return state;
+
     default:
       return {
         ...state,

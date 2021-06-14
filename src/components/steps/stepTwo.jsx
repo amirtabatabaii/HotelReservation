@@ -51,6 +51,7 @@ class StepTwo extends Component {
         <SelectedHotelInfo
           hotel_name={hotel_name}
           hotel_city={selectedHotel && selectedHotel.city}
+          hotel_possibilities={selectedHotel && selectedHotel.possibilities}
         />
 
         <div className='border rounded mx-auto my-3 p-3 w-75 justify-content-center bg-light'>

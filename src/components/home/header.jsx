@@ -14,7 +14,7 @@ class header extends Component {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className='justify-content-end'>
-          <Button>Yeni Reservasyon Yap</Button>
+          {/* <Button>Yeni Reservasyon Yap</Button> */}
         </Navbar.Collapse>
       </Navbar>
     );
