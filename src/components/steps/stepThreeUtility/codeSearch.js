@@ -24,7 +24,7 @@ function codeSearch(props) {
             >
               <Input
                 placeholder='Kupon kodu'
-                disabled={props.coupon_code ? true : false}
+                defaultValue={localStorage.getItem("coupon_code")}
               />
             </Form.Item>
             <Form.Item>

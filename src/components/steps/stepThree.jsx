@@ -118,26 +118,38 @@ class StepThree extends Component {
   };
 
   render() {
+    const {
+      crdt_month,
+      crdt_year,
+      crdt_number,
+      crdt_name,
+      crdt_cvv,
+      coupon_code,
+      coupon_code_discount,
+    } = this.state;
+
+    const { listOfHotels, selectedHotel } = this.props;
+
     return (
       <div className='mt-5'>
         <Row className='w-100 m-auto justify-content-center'>
           <Col className='border rounded m-1' lg={7}>
             <Col lg={9} className='m-auto'>
               <BankCard
-                crdt_number={this.state.crdt_number}
-                crdt_name={this.state.crdt_name}
-                crdt_month={this.state.crdt_month}
-                crdt_year={this.state.crdt_year}
-                crdt_cvv={this.state.crdt_cvv}
+                crdt_number={crdt_number}
+                crdt_name={crdt_name}
+                crdt_month={crdt_month}
+                crdt_year={crdt_year}
+                crdt_cvv={crdt_cvv}
               />
             </Col>
             <Col lg={12}>
               <CardDetail
                 handelInputChange={this.handelInputChange}
-                crdt_number={this.state.crdt_number}
-                crdt_name={this.state.crdt_name}
+                crdt_number={crdt_number}
+                crdt_name={crdt_name}
                 handleDateChange={this.handleDateChange}
-                crdt_cvv={this.state.crdt_cvv}
+                crdt_cvv={crdt_cvv}
               />
             </Col>
           </Col>
@@ -146,15 +158,15 @@ class StepThree extends Component {
             <Col lg={12}>
               <AllSelectedHotelDetail
                 find_hotel_name={find_hotel_name}
-                listOfHotels={this.props.listOfHotels}
-                selectedHotel={this.props.selectedHotel}
+                listOfHotels={listOfHotels}
+                selectedHotel={selectedHotel}
                 find_room_type_scenic={find_room_type_scenic}
               />
             </Col>
             <Col lg={12}>
               <CodeSearch
                 onCodeSearch={this.onCodeSearch}
-                coupon_code={this.state.coupon_code}
+                coupon_code={coupon_code}
               />
             </Col>
             <Col lg={12}>
@@ -162,14 +174,24 @@ class StepThree extends Component {
                 <Row className='m-auto justify-content-center'>
                   <Col className='rounded bg-white ps-1 m-3'>
                     <CalcPrice
-                      selectedHotel={this.props.selectedHotel}
+                      selectedHotel={selectedHotel}
                       find_room_price={find_room_price}
                       find_room_percentage={find_room_percentage}
                       date_diff_indays={date_diff_indays}
                       calc_price={calc_price}
                       calc_end_price={calc_end_price}
-                      coupon_code={this.state.coupon_code}
-                      coupon_code_discount={this.state.coupon_code_discount}
+                      coupon_code={
+                        coupon_code
+                          ? coupon_code
+                          : localStorage.getItem("coupon_code")
+                      }
+                      coupon_code_discount={
+                        coupon_code_discount
+                          ? coupon_code_discount
+                          : localStorage.getItem("code_discount")
+                      }
+                      // coupon_code={coupon_code}
+                      // coupon_code_discount={coupon_code_discount}
                     />
                   </Col>
                 </Row>

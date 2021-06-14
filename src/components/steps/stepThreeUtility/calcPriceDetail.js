@@ -88,9 +88,7 @@ function calcPrice(props) {
               props.selectedHotel.room_scenic,
               localStorage.getItem("room_scenic")
             ),
-            localStorage.getItem("code_discount")
-              ? localStorage.getItem("code_discount")
-              : props.coupon_code_discount
+            props.coupon_code_discount
           )
           .toString()
           .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + " TL"}

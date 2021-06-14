@@ -3,17 +3,21 @@ import { Row, Col, Container } from "react-bootstrap";
 
 class allDetail extends Component {
   render() {
+    const {
+      find_hotel_name,
+      listOfHotels,
+      find_room_type_scenic,
+      selectedHotel,
+    } = this.props;
+
     return (
       <Container>
         <Row className='m-auto justify-content-center text-center'>
           <Col className='rounded bg-white p-2 m-2'>
             <span className='h5'>
-              {this.props.find_hotel_name(
-                this.props.listOfHotels,
-                localStorage.getItem("hotel_id")
-              )}
+              {find_hotel_name(listOfHotels, localStorage.getItem("hotel_id"))}
             </span>
-            <span className='h6 m-2'>({this.props.selectedHotel.city})</span>
+            <span className='h6 m-2'>({selectedHotel.city})</span>
           </Col>
         </Row>
 
@@ -41,8 +45,8 @@ class allDetail extends Component {
           <Col className='rounded bg-white p-1 m-2'>
             <b>Oda Tipi:</b>
             <p>
-              {this.props.find_room_type_scenic(
-                this.props.selectedHotel.room_type,
+              {find_room_type_scenic(
+                selectedHotel.room_type,
                 localStorage.getItem("room_type")
               )}
             </p>
@@ -50,8 +54,8 @@ class allDetail extends Component {
           <Col className='rounded bg-white p-1 m-2'>
             <b>Manzara:</b>
             <p>
-              {this.props.find_room_type_scenic(
-                this.props.selectedHotel.room_scenic,
+              {find_room_type_scenic(
+                selectedHotel.room_scenic,
                 localStorage.getItem("room_scenic")
               )}
             </p>

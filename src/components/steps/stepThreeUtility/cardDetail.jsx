@@ -7,6 +7,14 @@ const { Option } = Select;
 
 class cardDetail extends Component {
   render() {
+    const {
+      crdt_number,
+      crdt_name,
+      handleDateChange,
+      handelInputChange,
+      crdt_cvv,
+    } = this.props;
+
     return (
       <fieldset className='scheduler-border'>
         <legend className='scheduler-border'>Kart Bilgileri</legend>
@@ -18,9 +26,9 @@ class cardDetail extends Component {
             name='crdt_number'
             type='text'
             pattern='[0-9]*'
-            onChange={this.props.handelInputChange}
+            onChange={handelInputChange}
             maxLength='16'
-            value={this.props.crdt_number}
+            value={crdt_number}
           />
         </Row>
 
@@ -30,9 +38,9 @@ class cardDetail extends Component {
             placeholder='Kartın Üzerindeki İsim Giriniz'
             name='crdt_name'
             type='text'
-            onChange={this.props.handelInputChange}
+            onChange={handelInputChange}
             maxLength={30}
-            value={this.props.crdt_name}
+            value={crdt_name}
           />
         </Row>
 
@@ -44,7 +52,7 @@ class cardDetail extends Component {
               placeholder='Ay'
               name='crdt_month'
               style={{ width: 100 }}
-              onChange={this.props.handleDateChange}
+              onChange={handleDateChange}
             >
               {month.map((month, index) => (
                 <Option key={index} value={index + 1}>
@@ -58,7 +66,7 @@ class cardDetail extends Component {
               placeholder='Yıl'
               name='crdt_year'
               style={{ width: 100 }}
-              onChange={this.props.handleDateChange}
+              onChange={handleDateChange}
             >
               {year.map((year, index) => (
                 <Option key={index} value={year}>
@@ -74,9 +82,9 @@ class cardDetail extends Component {
               name='crdt_cvv'
               type='text'
               pattern='[0-9]*'
-              onChange={this.props.handelInputChange}
+              onChange={handelInputChange}
               maxLength={3}
-              value={this.props.crdt_cvv}
+              value={crdt_cvv}
             />
           </Col>
         </Row>

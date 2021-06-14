@@ -5,32 +5,7 @@ export const HotelDetailsApi = `https://run.mocky.io/v3/14bbfaeb-d2de-4892-9ab2-
 export const HotelCodeApi = `https://5f6d939160cf97001641b049.mockapi.io/tkn/coupons`;
 export const EditHotelBookingApi = `https://5f6d939160cf97001641b049.mockapi.io/tkn/hotel-bookings`;
 
-export const month = [
-  "January (Ocak)",
-  "February (Şubat)",
-  "March (Mart)",
-  "April (Nisan)",
-  "May (Mayıs)",
-  "June (Temmuz)",
-  "July (Haziran)",
-  "August (Ağustos)",
-  "September (Eylül)",
-  "October (Ekim)",
-  "November (Kasım)",
-  "December (Aralık)",
-];
 export const year = [
-  "11",
-  "12",
-  "13",
-  "14",
-  "15",
-  "16",
-  "17",
-  "18",
-  "19",
-  "20",
-  "21",
   "22",
   "23",
   "24",
@@ -42,12 +17,19 @@ export const year = [
   "30",
   "31",
   "32",
-  "33",
-  "34",
-  "35",
-  "36",
-  "37",
-  "38",
-  "39",
-  "40",
+];
+
+export const month = [
+  "1-January",
+  "2-February",
+  "3-March",
+  "4-April",
+  "5-May",
+  "6-June",
+  "7-July",
+  "8-August",
+  "9-September",
+  "10-October",
+  "11-November",
+  "12-December",
 ];

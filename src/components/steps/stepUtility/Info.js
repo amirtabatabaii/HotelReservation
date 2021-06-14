@@ -1,5 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { Modal } from "antd";
+import { Popconfirm } from "antd";
 
 function info(props) {
   return (
@@ -26,12 +28,22 @@ function info(props) {
         >
           Reservasyonu Güncelle
         </Button>
-        <Button
-          className='btn btn-primary btn-lg m-1'
-          onClick={props.handleDelete}
+
+        <Popconfirm
+          placement='top'
+          title={"Rezervasyon kaydınızı iptal etmek istediğinize emin misiniz?"}
+          onConfirm={props.handleDelete}
+          okText='Evet'
+          cancelText='Hayır'
         >
-          Reservasyonu İptal Et
-        </Button>
+          <Button
+            className='btn btn-primary btn-lg m-1'
+            // onClick={props.handleDelete}
+            type='dashed'
+          >
+            Reservasyonu İptal Et
+          </Button>
+        </Popconfirm>
       </div>
     </div>
   );

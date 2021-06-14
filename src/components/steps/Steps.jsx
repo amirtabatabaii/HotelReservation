@@ -190,9 +190,12 @@ class Steps extends Component {
   };
 
   render() {
+    const { is_posted, startingStep, posted_id } = this.state;
+    const { listOfHotels, selectedHotel } = this.props;
+
     return (
       <div className='p-2'>
-        {!this.state.is_posted && (
+        {!is_posted && (
           <StepsBar
             onFormSubmit={this.onFormSubmit}
             adultInputNumberOnChange={adultInputNumberOnChange}
@@ -204,11 +207,11 @@ class Steps extends Component {
             step1Validator={step1Validator}
             roomSelectedOnChange={roomSelectedOnChange}
             step2Validator={step2Validator}
-            startingStep={this.state.startingStep}
+            startingStep={startingStep}
           />
         )}
 
-        {this.state.is_posted && (
+        {is_posted && (
           <Container>
             <Row className='border rounded mb-3 p-3'>
               <Info
@@ -216,36 +219,33 @@ class Steps extends Component {
                 handleNew={this.handleNew}
                 handleEdit={this.handleEdit}
                 handleDelete={this.handleDelete}
+                posted_id={posted_id}
               />
             </Row>
             <Row className='bg-light'>
-              {this.props.listOfHotels.length > 0 &&
-                this.props.selectedHotel && (
-                  <AllSelectedHotelDetail
-                    find_hotel_name={find_hotel_name}
-                    listOfHotels={this.props.listOfHotels}
-                    selectedHotel={this.props.selectedHotel}
-                    find_room_type_scenic={find_room_type_scenic}
-                  />
-                )}
+              {listOfHotels.length > 0 && selectedHotel && (
+                <AllSelectedHotelDetail
+                  find_hotel_name={find_hotel_name}
+                  listOfHotels={listOfHotels}
+                  selectedHotel={selectedHotel}
+                  find_room_type_scenic={find_room_type_scenic}
+                />
+              )}
             </Row>
             <Row className='bg-light'>
               <Col className='rounded bg-white p-2 m-3'>
-                {this.props.listOfHotels.length > 0 &&
-                  this.props.selectedHotel && (
-                    <CalcPrice
-                      selectedHotel={this.props.selectedHotel}
-                      find_room_price={find_room_price}
-                      find_room_percentage={find_room_percentage}
-                      date_diff_indays={date_diff_indays}
-                      calc_price={calc_price}
-                      calc_end_price={calc_end_price}
-                      coupon_code={localStorage.getItem("coupon_code")}
-                      coupon_code_discount={localStorage.getItem(
-                        "code_discount"
-                      )}
-                    />
-                  )}
+                {listOfHotels.length > 0 && selectedHotel && (
+                  <CalcPrice
+                    selectedHotel={selectedHotel}
+                    find_room_price={find_room_price}
+                    find_room_percentage={find_room_percentage}
+                    date_diff_indays={date_diff_indays}
+                    calc_price={calc_price}
+                    calc_end_price={calc_end_price}
+                    coupon_code={localStorage.getItem("coupon_code")}
+                    coupon_code_discount={localStorage.getItem("code_discount")}
+                  />
+                )}
               </Col>
             </Row>
           </Container>
