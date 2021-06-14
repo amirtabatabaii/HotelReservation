@@ -92,7 +92,9 @@ export function pickerStartOnChange(date, dateString) {
   let dt1 = new Date(startDate);
   let dt2 = new Date(endDate);
 
-  if (date_diff_indays(today, dt1) === 0) {
+  console.log(date_diff_indays(today, dt1));
+
+  if (date_diff_indays(today, dt1) <= 0) {
     notification_with_icon(
       "error",
       "Başlangıç Tarih",
