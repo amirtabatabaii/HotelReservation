@@ -185,7 +185,7 @@ class StepThree extends Component {
                         </Form.Item>
                         <Form.Item>
                           <Button type='primary' htmlType='submit'>
-                            Submit
+                            Kodu Kullan
                           </Button>
                         </Form.Item>
                       </Form>
