@@ -12,6 +12,12 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Home extends Component {
+  state = { newReserve: false };
+
+  handleNewReserveClick = () => {
+    this.setState({ newReserve: true });
+  };
+
   async componentDidMount() {
     await axios.get(HotelListsApi).then((res) => {
       if (res.status === 200) this.props.getHotelLists(res.data);
@@ -31,9 +37,8 @@ class Home extends Component {
   render() {
     return (
       <>
-        <Header />
-        <Steps />
-        {/* <Footer/> */}
+        <Header handleNewReserveClick={this.handleNewReserveClick} />
+        <Steps newReserve={this.state.newReserve} />
       </>
     );
   }

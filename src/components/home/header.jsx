@@ -12,6 +12,12 @@ class header extends Component {
             <span className='second-text'>Reservasyon sistemi</span>
           </p>
         </Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className='justify-content-end'>
+          <Button onClick={this.props.handleNewReserveClick}>
+            Yeni Reservasyon Yap
+          </Button>
+        </Navbar.Collapse>
       </Navbar>
     );
   }
